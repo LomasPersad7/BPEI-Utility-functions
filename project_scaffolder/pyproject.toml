@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "project-scaffolder"
+version = "0.1.0"
+description = "Automates creation of numbered project directories with R scaffolding"
+readme = "README.md"
+authors = [
+  { name = "Lomas Persad", email = "lomas@example.com" }
+]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+
+dependencies = [
+  "typer>=0.12.3"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+  "black>=24.4.2",
+  "ruff>=0.5.0",
+  "mypy>=1.10.0"
+]
+
+[project.scripts]
+scaffold = "project_scaffolder.cli:app"
+
+# Development dependencies (installed separately with pip)
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.ruff]
+line-length = 88
+select = ["E", "F"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true

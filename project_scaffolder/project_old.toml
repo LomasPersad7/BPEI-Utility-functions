@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "project-scaffolder"
+version = "0.1.0"
+description = "Automates creation of numbered project directories with R scaffolding"
+readme = "README.md"
+authors = [
+  { name = "Lomas Persad", email = "lxp1655@miami.edu" }
+]
+license = { text = "MIT" }
+requires-python = ">=3.9"
+
+dependencies = [
+  "typer>=0.12.3"
+]
+
+[project.scripts]
+scaffold = "project_scaffolder.cli:app"
