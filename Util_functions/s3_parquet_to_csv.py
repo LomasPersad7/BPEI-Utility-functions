@@ -28,128 +28,138 @@ import os
 from dotenv import load_dotenv
 import re
 import duckdb
+import glob
+from pathlib import Path
+
+
+
 
 # ----------------------------
-# Configuration
+# S3 Client
 # ----------------------------
-bucket = "lomaspersad"
-base_prefix = "32_dmards"  # folder in S3
-local_base = "s3_downloads/32_dmards"
+def get_s3_client():
+    load_dotenv()
+    return boto3.client(
+        "s3",
+        region_name=os.getenv("AWS_REGION"),
+        aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
+        aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY"),
+    )
 
-os.makedirs(local_base, exist_ok=True)
-
-# Load environment variables from .env
-load_dotenv()
-
-# Use default profile from awscli
-session = boto3.Session(profile_name="lomas", region_name="us-east-1")
-# s3 = session.client("s3")
-s3 = boto3.client(
-    "s3",
-    region_name=os.getenv("AWS_REGION"),
-    aws_access_key_id=os.getenv("AWS_ACCESS_KEY_ID"),
-    aws_secret_access_key=os.getenv("AWS_SECRET_ACCESS_KEY")
-)
-
-def test_list_tables():
-    #NB list cleaned up to avoid duplicates, not actual file names with xxx.parquet
-    # List all objects under the base prefix
+# ----------------------------
+# Discover tables + parquet files
+# ----------------------------
+def get_table_files(s3):
+    """
+    Returns:
+        dict[str, list[str]] -> table_name -> list of S3 keys
+    """
     paginator = s3.get_paginator("list_objects_v2")
-    tables = set()
+    table_files = {}
 
-    paginator = s3.get_paginator("list_objects_v2")
-    tables = set()
+    pattern = re.compile(r"(.+?)(\d*)\.parquet$")
 
-    pattern = re.compile(r"(.+?)(\d*)\.parquet$")  # captures table name before numbers
-
-    for page in paginator.paginate(Bucket=bucket, Prefix=base_prefix):
+    for page in paginator.paginate(Bucket=BUCKET, Prefix=BASE_PREFIX):
         for obj in page.get("Contents", []):
-            key = obj["Key"].split("/")[-1]  # get filename only
-            match = pattern.match(key)
-            if match:
-                table_name = match.group(1)  # e.g., 'patient_cst'
-                tables.add(table_name)
+            key = obj["Key"]
+            if not key.endswith(".parquet"):
+                continue
 
-    tables = sorted(list(tables))
-    print("Tables found in S3:")
-    print(tables)
-
-
-# ----------------------------
-# Step 1: List all parquet files under base_prefix and group by table name
-# ----------------------------
-paginator = s3.get_paginator("list_objects_v2")
-
-# Regex to extract table name before numeric suffix and .parquet
-pattern = re.compile(r"(.+?)(\d*)\.parquet$")
-
-# Dict to hold table_name -> list of keys
-table_files = {}
-
-for page in paginator.paginate(Bucket=bucket, Prefix=base_prefix):
-    for obj in page.get("Contents", []):
-        key = obj["Key"]
-        if key.endswith(".parquet"):
-            filename = key.split("/")[-1]
+            filename = os.path.basename(key)
             match = pattern.match(filename)
             if match:
                 table_name = match.group(1)
                 table_files.setdefault(table_name, []).append(key)
 
-# Get all table names
-tables = sorted(table_files.keys())
+    return table_files
 
 # ----------------------------
-# Function to download all parquet files for a table
+# Download parquet files
 # ----------------------------
-def download_table_parquets(table_name):
-    # local_dir = os.path.join(local_base, table_name)
-    # os.makedirs(local_dir, exist_ok=True)
-    
-    print(f"Downloading all parquet files into '{local_base}'")
-    for table, keys in table_files.items():
-        for key in keys:
-            local_path = os.path.join(local_base, os.path.basename(key))
-            if not os.path.exists(local_path):
-                print(f"Downloading {key}")
-                s3.download_file(bucket, key, local_path)
-    print("Finished downloading all parquet files.")
+def download_table_parquets(s3, table_name, keys):
+    table_dir = os.path.join(LOCAL_BASE, table_name)
+    os.makedirs(table_dir, exist_ok=True)
+
+    print(f"\nDownloading table: {table_name}")
+    for key in keys:
+        local_path = os.path.join(table_dir, os.path.basename(key))
+        if not os.path.exists(local_path):
+            print(f"  Downloading {key}")
+            s3.download_file(BUCKET, key, local_path)
+
+
+
 
 # ----------------------------
-# Function to convert downloaded parquet files of a table to CSV
+# Orchestrators
 # ----------------------------
-def convert_table_to_csv(table_name):
-    parquet_path = os.path.join(local_base, table_name, "*.parquet")
-    csv_output = f"{table_name}.csv"
-    print(f"Converting {table_name} to CSV...")
-    
-    duckdb.sql(f"""
-        COPY (
-            SELECT *
-            FROM read_parquet('{parquet_path}')
-        )
-        TO '{csv_output}'
-        WITH (HEADER, DELIMITER ',');
-    """)
-    print(f"{csv_output} created.")
+def download_all_tables( ):
+    s3 = get_s3_client()
+
+    table_files = get_table_files(s3)
+    # print("Tables found:", list(table_files.keys()))
+    for table_name, keys in table_files.items():
+        download_table_parquets(s3, table_name, keys)
+
+
+
 
 # ----------------------------
-# Helper functions to download or convert all tables
+# Convert parquet → CSV
 # ----------------------------
-def download_all_tables():
-    for table in tables:
-        download_table_parquets(table)
 
-def convert_all_tables():
-    for table in tables:
-        convert_table_to_csv(table)
+def convert_all_tables_to_csv_gz(local_base):
+    base = Path(local_base)
 
+    table_dirs = [d for d in base.iterdir() if d.is_dir()]
+    print("Tables found:", [d.name for d in table_dirs])
+
+    for table_dir in table_dirs:
+        parquet_files = list(table_dir.glob("*.parquet"))
+        if not parquet_files:
+            continue
+
+        output_csv = base / f"{table_dir.name}.csv.gz"
+
+        print(f"Converting {table_dir.name} → {output_csv.as_posix()}")
+
+        parquet_list = ", ".join(f"'{p.as_posix()}'" for p in parquet_files)
+        
+        # print(parquet_list)
+
+        duckdb.sql(f"""
+            COPY (
+                SELECT *
+                FROM read_parquet([{parquet_list}])
+            )
+            TO '{output_csv.as_posix()}'
+            WITH (
+                HEADER,
+                DELIMITER ',',
+                COMPRESSION 'gzip'
+            );
+        """)
 # ----------------------------
-# Example usage
+# Main
 # ----------------------------
 if __name__ == "__main__":
-    # Download all parquet files (only once)
-    download_all_tables()
     
-    # Convert all tables to CSV (can be run multiple times)
-    # convert_all_tables()
+    # ----------------------------
+    # Configuration
+    # ----------------------------
+  
+    BUCKET = "lomaspersad"
+    BASE_PREFIX = "25_glaucoma_risk"  # folder in S3
+    LOCAL_BASE = os.path.join("s3_downloads", BASE_PREFIX)
+
+    os.makedirs(LOCAL_BASE, exist_ok=True)
+
+    # Download once
+    download_all_tables()
+
+    # Convert anytime
+    convert_all_tables_to_csv_gz(LOCAL_BASE)
+    
+    
+    # testing
+ 
