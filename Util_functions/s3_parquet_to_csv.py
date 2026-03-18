@@ -1,4 +1,4 @@
-# downloads parquet from s3 and converts to csv
+# downloads parquet from s3 and converts to csv - for request of raw data
 
 # import duckdb
 
@@ -30,7 +30,10 @@ import re
 import duckdb
 import glob
 from pathlib import Path
+import gzip
+import shutil
 
+from copy_parquet import move_all_parquet_files
 
 
 
@@ -88,12 +91,32 @@ def download_table_parquets(s3, table_name, keys):
             s3.download_file(BUCKET, key, local_path)
 
 
+def download_tables_by_prefix(table_prefixes):
+    # os.makedirs(LOCAL_FILTERED_BASE, exist_ok=True)
+    os.makedirs(LOCAL_BASE, exist_ok=True)
+    
+    s3 = get_s3_client()
+    table_files = get_table_files(s3)
+
+    prefixes = tuple(table_prefixes)  # for str.startswith
+
+    for table_name, keys in table_files.items():
+        if table_name.startswith(prefixes):
+            # table_local_path = os.path.join(LOCAL_FILTERED_BASE, table_name)
+            # os.makedirs(table_local_path, exist_ok=True)
+
+            download_table_parquets(
+                s3,
+                table_name,
+                keys
+            )
 
 
 # ----------------------------
 # Orchestrators
 # ----------------------------
 def download_all_tables( ):
+    os.makedirs(LOCAL_BASE, exist_ok=True)
     s3 = get_s3_client()
 
     table_files = get_table_files(s3)
@@ -108,58 +131,175 @@ def download_all_tables( ):
 # Convert parquet → CSV
 # ----------------------------
 
+
+# def convert_all_tables_to_csv_gz(local_base):
+#     base = Path(local_base)
+
+#     # FORCE SINGLE OUTPUT FILE (DuckDB 1.4.3)
+#     duckdb.sql("PRAGMA threads=1;")
+
+#     table_dirs = [d for d in base.iterdir() if d.is_dir()]
+#     print("Tables found:", [d.name for d in table_dirs])
+
+#     for table_dir in table_dirs:
+#         parquet_files = sorted(table_dir.glob("*.parquet"))
+#         if not parquet_files:
+#             continue
+
+#         output_csv = base / f"{table_dir.name}.csv.gz"
+#         print(f"Converting {table_dir.name} → {output_csv}")
+
+#         parquet_list = ", ".join(f"'{p.as_posix()}'" for p in parquet_files)
+
+#         duckdb.sql(f"""
+#             COPY (
+#                 SELECT *
+#                 FROM read_parquet([{parquet_list}])
+#             )
+#             TO '{output_csv.as_posix()}'
+#             WITH (
+#                 FORMAT CSV,
+#                 HEADER TRUE,
+#                 DELIMITER ',',
+#                 COMPRESSION GZIP
+#             );
+#         """)  
+
+# def convert_all_tables_to_csv_gz(local_base):
+#     base = Path(local_base)
+
+#     table_dirs = [d for d in base.iterdir() if d.is_dir()]
+#     print("Tables found:", [d.name for d in table_dirs])
+
+#     for table_dir in table_dirs:
+#         parquet_files = sorted(table_dir.glob("*.parquet"))
+#         if not parquet_files:
+#             continue
+
+#         tmp_csv = base / f"{table_dir.name}.csv"
+#         output_gz = base / f"{table_dir.name}.csv.gz"
+
+#         print(f"Converting {table_dir.name} → {output_gz.as_posix()}")
+
+#         parquet_list = ", ".join(f"'{p.as_posix()}'" for p in parquet_files)
+
+#         # 1. Write uncompressed CSV
+#         duckdb.sql(f"""
+#             COPY (
+#                 SELECT *
+#                 FROM read_parquet([{parquet_list}])
+#             )
+#             TO '{tmp_csv.as_posix()}'
+#             WITH (
+#                 FORMAT CSV,
+#                 HEADER TRUE,
+#                 DELIMITER ',',
+#                 SINGLE TRUE
+#             );
+#         """)
+
+#         # 2. Compress to .gz
+#         with open(tmp_csv, "rb") as f_in, gzip.open(output_gz, "wb") as f_out:
+#             shutil.copyfileobj(f_in, f_out)
+
+#         # 3. Remove temporary CSV
+#         tmp_csv.unlink()
+
+#         print(f"✔ Finished {output_gz.name}")        
+        
+
+from pathlib import Path
+import gzip
+import pyarrow as pa
+import pyarrow.parquet as pq
+import pyarrow.csv as pc
+
+def parquet_dir_to_csv_gz(parquet_dir, output_csv_gz):
+    parquet_dir = Path(parquet_dir)
+    parquet_files = sorted(parquet_dir.glob("*.parquet"))
+    if not parquet_files:
+        return
+
+    with gzip.open(output_csv_gz, "wb") as gz_out:
+        write_header = True
+
+        for pf in parquet_files:
+            parquet_file = pq.ParquetFile(pf)
+
+            for batch in parquet_file.iter_batches(batch_size=500_000):
+                table = pa.Table.from_batches([batch])
+
+                pc.write_csv(
+                    table,
+                    gz_out,
+                    write_options=pc.WriteOptions(
+                        include_header=write_header
+                    )
+                )
+
+                write_header = False
+                
 def convert_all_tables_to_csv_gz(local_base):
     base = Path(local_base)
 
-    table_dirs = [d for d in base.iterdir() if d.is_dir()]
-    print("Tables found:", [d.name for d in table_dirs])
-
-    for table_dir in table_dirs:
-        parquet_files = list(table_dir.glob("*.parquet"))
-        if not parquet_files:
+    for table_dir in base.iterdir():
+        if not table_dir.is_dir():
             continue
 
-        output_csv = base / f"{table_dir.name}.csv.gz"
+        output_csv_gz = base / f"{table_dir.name}.csv.gz"
+        print(f"Converting {table_dir.name} → {output_csv_gz}")
 
-        print(f"Converting {table_dir.name} → {output_csv.as_posix()}")
+        parquet_dir_to_csv_gz(table_dir, output_csv_gz)
 
-        parquet_list = ", ".join(f"'{p.as_posix()}'" for p in parquet_files)
-        
-        # print(parquet_list)
-
-        duckdb.sql(f"""
-            COPY (
-                SELECT *
-                FROM read_parquet([{parquet_list}])
-            )
-            TO '{output_csv.as_posix()}'
-            WITH (
-                HEADER,
-                DELIMITER ',',
-                COMPRESSION 'gzip'
-            );
-        """)
+        print(f"✔ Finished {output_csv_gz.name}")
 # ----------------------------
 # Main
 # ----------------------------
 if __name__ == "__main__":
     
-    # ----------------------------
+    # ---------------------------- 
     # Configuration
     # ----------------------------
   
     BUCKET = "lomaspersad"
-    BASE_PREFIX = "25_glaucoma_risk"  # folder in S3
+    BASE_PREFIX = "32_dmards"  # folder in S3
     LOCAL_BASE = os.path.join("s3_downloads", BASE_PREFIX)
 
-    os.makedirs(LOCAL_BASE, exist_ok=True)
+    
 
-    # Download once
-    download_all_tables()
+    #1) Download once
+    # download_all_tables()
+    
+    #2) copy to R
+    # move_all_parquet_files(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\15 Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery\R\data")
+
+    #3) Convert anytime
+    # convert_all_tables_to_csv_gz(LOCAL_BASE)
+    
+    #------------- download specific tables by prefix -------------
+    # Download by prefix
+    LOCAL_BASE = os.path.join("s3_downloads", BASE_PREFIX,'Updated')
+    
+    # download_tables_by_prefix(["patient_closed", "patient_concept_date", "patient_device",\
+    #                             "patient_tobacco_history","practice_ehr"])
+    
+        # copy to R
+    # move_all_parquet_files(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\15 Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery\R\data")
 
     # Convert anytime
     convert_all_tables_to_csv_gz(LOCAL_BASE)
     
     
+    
+    
+    
+
+    
     # testing
+    
+    # import gzip
+    # with gzip.open("practice_location.csv.gz", "rt") as f:
+    #     for _ in range(5):
+    #         print(f.readline())
+
  
