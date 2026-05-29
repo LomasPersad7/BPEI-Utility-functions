@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
     s3 = get_s3_client()
     BUCKET = "lomaspersad"
-    localDir = Path(r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\20 Swaminathan COSMOS IRIS Surgical management of early complications following goniotomy\R\data")
+    localDir = Path(r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\24 Yannuuzi IRIS Timing and Age as Determinants of Visual Outcomes and Complications in Pediatric Macular Hole Repair\R\data")
 
 
     # single file download
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     download_s3_prefix(
     s3,
     bucket=BUCKET,
-    prefix="20_Goniotomy/",
+    prefix="24_PMH2/",
     local_base=localDir
     )
     

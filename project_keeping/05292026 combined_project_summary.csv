@@ -1,0 +1,17 @@
+project_number,project_name,pi_name,project_db,extraction_work_only,first_submission_date,start_date,last_recorded_date,total_hours,Status
+8,Rothman Iris project IOP spike,Rothman,IRIS,,6/3/2024,10/31/2025,5/21/2026,45.14,Work in progress
+10,DR and SDOH,Williams,Cosmos,,9/3/2024,11/20/2025,4/13/2026,127.17,Discontinued ( greatly exceeds 200 hrs in my estimation)
+13,Williams COSMOS retinal tears,Williams,Cosmos,,10/17/2024,9/23/2025,10/1/2025,10.17,completed
+14,Yannuuzi IRIS Pediatric Macular Hole,Yannuuzi,IRIS,,11/7/2024,10/28/2025,10/28/2025,1.13,completed
+15,Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery,Yannuuzi,IRIS,,12/6/2024,11/26/2025,12/10/2025,15.4,completed
+16,Outcomes of diabetic tractional retinal detachment managed with complex retinal detachment surgery,Yannuuzi,IRIS,Data Extraction/Filtering,12/20/2024,5/13/2026,5/13/2026,2.97,completed
+19,Yannuuzi lattice degeneration,Yannuuzi,IRIS,,2/5/2025,1/20/2026,4/29/2026,73.35,completed
+20,COSMOS/IRIS Goniotomy Study,swaminathan,Both,,2/11/2025,10/27/2025,3/23/2026,99.72,completed
+21,Williams COSMOS impact of hydroxyurea treatment on progression and outcome of sickle cell retinopathy,Williams,Cosmos,,1/31/2025,9/18/2025,5/27/2026,108.17,Work in progress
+24,Yannuuzi IRIS Timing and Age as Determinants of Visual Outcomes and Complications in Pediatric Macular Hole Repair,Yannuuzi,IRIS,,7/2/2025,5/14/2026,5/28/2026,16.17,Work in progress
+25,"Lee IRIS Risk of Glaucoma Following Vitrectomy, Scleral Buckle, and Combined Surgery A Propensity-Matched Analysis Using the IRIS Registry",Lee,IRIS,Data Extraction/Filtering,7/23/2025,9/24/2025,12/16/2025,8.93,Data extraction completed
+28,Medeiros IRIS Impact of topical anti-inflammatory treatment on the outcomes of selective laser trabeculoplasty,Medeiros,IRIS,Data Extraction/Filtering,8/24/2025,9/8/2025 0:00,9/12/2025 0:00,20,Data extraction completed
+29,"Yoo IRIS Combined LASIKPRK Demographics Visual Symptoms, and Shared Post-Operative Complications in the IRIS Registry",Yoo,IRIS,,8/28/2025,9/23/2025,3/9/2026,89.45,completed
+31,Palioura T2DM CEIOL,Palioura,IRIS,,11/10/2025,1/23/2026,5/28/2026,49.75,Work in progress
+32,"Yousefi Comparison of Biologic, Conventional Disease-Modifying Antirheumatic Drugs (DMARDs)",Yousefi,IRIS,Data Extraction/Filtering,11/12/2025,12/10/2025,12/15/2025,15.28,Data extraction completed
+40,Yoo Prevalence of Myopia in the United States,Yoo,IRIS,,4/27/2026,4/28/2026,4/28/2026,4.95,Data extraction checks- Needs to be done in IRIS.

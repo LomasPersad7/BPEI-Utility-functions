@@ -42,6 +42,9 @@ from copy_parquet import move_all_parquet_files
 # ----------------------------
 def get_s3_client():
     load_dotenv()
+    
+    print("AWS_REGION:", os.getenv("AWS_REGION"))
+    
     return boto3.client(
         "s3",
         region_name=os.getenv("AWS_REGION"),
@@ -239,15 +242,36 @@ def parquet_dir_to_csv_gz(parquet_dir, output_csv_gz):
 
                 write_header = False
                 
-def convert_all_tables_to_csv_gz(local_base):
+# def convert_all_tables_to_csv_gz(local_base):
+#     base = Path(local_base)
+
+#     for table_dir in base.iterdir():
+#         if not table_dir.is_dir():
+#             continue
+
+#         output_csv_gz = base / f"{table_dir.name}.csv.gz"
+#         print(f"Converting {table_dir.name} → {output_csv_gz}")
+
+#         parquet_dir_to_csv_gz(table_dir, output_csv_gz)
+
+#         print(f"✔ Finished {output_csv_gz.name}")
+        
+        
+def convert_all_tables_to_csv_gz_move(local_base, output_dir):
     base = Path(local_base)
+    output_dir = Path(output_dir)
+
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     for table_dir in base.iterdir():
+
         if not table_dir.is_dir():
             continue
 
-        output_csv_gz = base / f"{table_dir.name}.csv.gz"
-        print(f"Converting {table_dir.name} → {output_csv_gz}")
+        output_csv_gz = output_dir / f"{table_dir.name}.csv.gz"
+
+        print(f"\nConverting {table_dir.name}")
+        print(f"Output → {output_csv_gz}")
 
         parquet_dir_to_csv_gz(table_dir, output_csv_gz)
 
@@ -262,36 +286,45 @@ if __name__ == "__main__":
     # ----------------------------
   
     BUCKET = "lomaspersad"
-    BASE_PREFIX = "32_dmards"  # folder in S3
+    BASE_PREFIX = "16_Diabetic_TRD"  # folder in S3 
     LOCAL_BASE = os.path.join("s3_downloads", BASE_PREFIX)
 
     
 
     #1) Download once
-    # download_all_tables()
+    download_all_tables()
     
     #2) copy to R
-    # move_all_parquet_files(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\15 Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery\R\data")
+    # move_all_parquet_files(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\Shared_reports\Yannuzzi\Diabetic TRD\IRIS data")
 
     #3) Convert anytime
     # convert_all_tables_to_csv_gz(LOCAL_BASE)
     
+    convert_all_tables_to_csv_gz_move(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\Shared_reports\Yannuzzi\Diabetic TRD\IRIS data")
+    
+    
+    
+    
+   
+    
     #------------- download specific tables by prefix -------------
-    # Download by prefix
-    LOCAL_BASE = os.path.join("s3_downloads", BASE_PREFIX,'Updated')
     
-    # download_tables_by_prefix(["patient_closed", "patient_concept_date", "patient_device",\
-    #                             "patient_tobacco_history","practice_ehr"])
+    # # Download by prefix
+    # LOCAL_BASE = os.path.join("s3_downloads", BASE_PREFIX,'Updated')
     
-        # copy to R
-    # move_all_parquet_files(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\15 Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery\R\data")
+    # # download_tables_by_prefix(["patient_closed", "patient_concept_date", "patient_device",\
+    # #                             "patient_tobacco_history","practice_ehr"])
+    
+    # download_tables_by_prefix(["patient_smoking"])
+    
+    #     # copy to R
+    # # move_all_parquet_files(LOCAL_BASE,r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\15 Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery\R\data")
 
-    # Convert anytime
-    convert_all_tables_to_csv_gz(LOCAL_BASE)
+    # # Convert anytime
+    # convert_all_tables_to_csv_gz(LOCAL_BASE)
     
-    
-    
-    
+
+      
     
 
     
