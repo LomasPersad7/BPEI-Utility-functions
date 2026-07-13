@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
     s3 = get_s3_client()
     BUCKET = "lomaspersad"
-    localDir = Path(r"C:\Users\lxp1655\OneDrive - University of Miami\Projects\24 Yannuuzi IRIS Timing and Age as Determinants of Visual Outcomes and Complications in Pediatric Macular Hole Repair\R\data")
+    localDir = Path(r"C:\Users\lxp1655\OneDrive - University of Miami\GithubUM\s3_downloads") #C:\Users\lxp1655\OneDrive - University of Miami\GithubUM\s3_downloads
 
 
     # single file download
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     download_s3_prefix(
     s3,
     bucket=BUCKET,
-    prefix="24_PMH2/",
+    prefix="37_keratoplasty/",
     local_base=localDir
     )
     
