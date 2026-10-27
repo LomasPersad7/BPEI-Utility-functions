@@ -1,0 +1,21 @@
+project_number,project_name,pi_name,project_db,extraction_work,first_submission_date,start_date,last_recorded_date,total_hours
+10,DR and SDOH,Williams,Cosmos,,9/3/2024,11/20/2025,09/25/2026,174.05
+14,Yannuuzi IRIS Pediatric Macular Hole,Yannuuzi,IRIS,,11/7/2024,10/28/2025,10/28/2025,1.13
+15,Yannuuzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery,Yannuuzi,IRIS,,12/6/2024,11/26/2025,12/10/2025,15.4
+16,Outcomes of diabetic tractional retinal detachment managed with complex retinal detachment surgery,Yannuuzi,IRIS,Data Extraction/Filtering,12/20/2024,05/13/2026,05/13/2026,2.97
+19,Yannuuzi lattice degeneration,Yannuuzi,IRIS,,2/5/2025,01/20/2026,09/18/2026,100.6
+20,COSMOS/IRIS Goniotomy Study,swaminathan,Both,,2/11/2025,10/27/2025,10/15/2026,195.27
+21,Williams COSMOS impact of hydroxyurea treatment on progression and outcome of sickle cell retinopathy,Williams,Cosmos,,1/31/2025,12/03/2025,06/25/2026,96.54
+24,Yannuuzi IRIS Timing and Age as Determinants of Visual Outcomes and Complications in Pediatric Macular Hole Repair,Yannuuzi,IRIS,,7/2/2025,05/14/2026,05/28/2026,16.17
+25,"Lee IRIS Risk of Glaucoma Following Vitrectomy, Scleral Buckle, and Combined Surgery A Propensity-Matched Analysis Using the IRIS Registry",Lee,IRIS,,7/23/2025,12/15/2025,12/16/2025,8.15
+28,Medeiros IRIS Impact of topical anti-inflammatory treatment on the outcomes of selective laser trabeculoplasty,Medeiros,IRIS,Data Extraction/Filtering,8/24/2025,2025-09-08 00:00:00,2025-09-12 00:00:00,20.0
+29,"Yoo IRIS Combined LASIKPRK Demographics Visual Symptoms, and Shared Post-Operative Complications in the IRIS Registry",Yoo,IRIS,,8/28/2025,10/15/2025,03/09/2026,42.18
+31,Palioura T2DM CEIOL,Palioura,IRIS,,11/10/2025,01/23/2026,10/06/2026,176.53
+32,"Yousefi Comparison of Biologic, Conventional Disease-Modifying Antirheumatic Drugs (DMARDs)",Yousefi,IRIS,,11/12/2025,12/10/2025,06/22/2026,15.38
+35,Swaminathan Incidence and management of non-surgical hyphemas,swaminathan,Both,,1/7/2026,05/29/2026,06/30/2026,55.47
+37,Koo Corneal Graft Survival in Keratoplasty Recipients,Koo,IRIS,,1/14/2026,07/01/2026,07/02/2026,7.1
+40,Yoo Prevalence of Myopia in the United States,Yoo,IRIS,,4/27/2026,04/28/2026,09/16/2026,61.2
+41,Medeiros Association of Postoperative Anti-inflammatory Drops with Outcomes of Laser Peripheral Iridotomy,Medeiros,IRIS,,6/1/2026,07/03/2026,08/19/2026,29.65
+43,Smiddy IVI discontinuation post-PPV,Medeiros,IRIS,,7/30/2026,08/18/2026,09/17/2026,10.85
+44,Lee Silicone Oil and Glaucoma Progression,Lee,IRIS,,8/3/2026,09/29/2026,10/12/2026,14.47
+8,Rothman Iris project IOP spike,Rothman,IRIS,,6/3/2024,10/31/2025,06/01/2026,47.57

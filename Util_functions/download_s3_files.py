@@ -82,7 +82,7 @@ if __name__ == "__main__":
     download_s3_prefix(
     s3,
     bucket=BUCKET,
-    prefix="37_keratoplasty/",
+    prefix="44_so_glaucoma/",
     local_base=localDir
     )
     

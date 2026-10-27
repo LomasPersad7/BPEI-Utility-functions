@@ -1,0 +1,47 @@
+project_number,project_name,pi_name,project_db,extraction_work,first_submission_date,start_date,last_recorded_date,total_hours,submission to start delay.,Status,Total support time (days),Research output,submitted_by,submission_source,notes
+1,Adult NK Oxervate Project,Zhu,Other,,3/26/2024,,,,,Completed,,,Arjun Sharma,Service Request Form (copy in project folder),
+4,iTrace Project,Donaldson,Other,,4/4/2024,,,,,Completed,,,Lindsay Foley,Service Request Form (copy in project folder),Follow-up request 3/25/2025
+5,Intraluminal stenting of glaucoma drainage devices,Maharaj,Other,,4/3/2024,,,,,Completed,,,Jane Gilmore,Service Request Form (copy in project folder),Original R project numbered 3
+6,Xen Ab Ex Surgical Outcomes,Maharaj,Other,,4/14/2024,,,,,Completed,,,Javier Nahmias,Service Request Form (copy in project folder),Original R project numbered 4
+7,Ocular Pain after Refractive Surgery,Galor,Other,,11/10/2023,,,,,Completed,,,Jason Betz,Email: Galor ARVO Project data (copy in project folder),
+8,Rothman Iris project IOP spike,Rothman,IRIS,,6/3/2024,10/31/2025,6/1/2026,47.57,515,Completed,213,Published,,Your previous list (before email history),
+9,Predictive Value of SLT,Chang,Other,,8/14/2024,,,,,Completed,,,,Approximate: project folder created (IRB protocol dated 8/2/2024),Approximate date
+10,DR and SDOH,Williams,Cosmos,,9/3/2024,11/20/2025,9/25/2026,174.05,443,Ongoing,309,,,Your previous list (before email history),
+11,Corneal Hysteresis as a Predictor of Glaucoma Surgical Success,Swaminathan,Cosmos,,9/20/2024,,,,,Completed,,,,Approximate: project folder created (same day as #12),Approximate date
+12,Association Between Surgical Failure & SVI,Swaminathan,Cosmos,,9/5/2024,,11/3/2025,,,Completed,,,,Your previous list (before email history),
+13,retinal tears,Williams,Cosmos,,10/14/2024,,2/17/2026,,,Completed,,,Bryant Menke,Email: Cosmos Database Request,
+14,Yannuzzi IRIS Pediatric Macular Hole,Yannuzzi,IRIS,,11/7/2024,10/28/2025,10/28/2025,1.13,355,Completed,0,Published,David Holden,Emailed IRIS intake,
+15,Yannuzzi IRIS Outcomes of Optic Pit Maculopathy Managed with Surgery,Yannuzzi,IRIS,,12/6/2024,11/26/2025,12/10/2025,15.4,355,Completed,14,,David Holden,Emailed IRIS intake,
+16,Outcomes of diabetic tractional retinal detachment managed with complex retinal detachment surgery,Yannuzzi,IRIS,Data Extraction/Filtering,12/20/2024,5/13/2026,5/13/2026,2.97,509,Completed,0,,David Holden,Emailed IRIS intake,Assigned to Guertson
+17,IRIS Clinical and Surgical Outcomes in Retinoschisis Associated Retinal Detachment,Yannuzzi,IRIS,,1/13/2025,,,,,Pending,,,Jessica Mar,Emailed IRIS intake + Service Request Form,
+18,IRIS Outcomes of central serous chorioretinopathy,Yannuzzi,IRIS,,1/30/2025,,,,,Pending,,,David Holden,Emailed IRIS intake + Service Request Form,
+19,Yannuzzi lattice degeneration,Yannuzzi,IRIS,,2/5/2025,1/20/2026,9/18/2026,100.6,349,Completed,241,,Jessica Mar,Emailed IRIS intake + Service Request Form,Revised intake 3/30/2026
+20,COSMOS/IRIS Goniotomy Study,Swaminathan,Both,,2/11/2025,10/27/2025,10/8/2026,178.44,258,Ongoing,346,,,Cosmos intake document in project folder,
+21,Williams COSMOS impact of hydroxyurea treatment on progression and outcome of sickle cell retinopathy,Williams,Cosmos,,1/31/2025,10/8/2025,6/25/2026,96.59,250,Completed,260,,Khalid El-Jack,Epic Cosmos intake form,
+22,Pentosan Polysulfate Toxicity,Yannuzzi,Cosmos,,4/7/2025,,,,,Pending,,,David Holden,Epic Cosmos intake form,
+23,The Effect of Rho Kinase Inhibitors on the Risk of Proliferative Vitreoretinopathy after Retinal Detachment Repair,Yannuzzi,IRIS,,4/7/2025,,,,,Pending,,,William Herskowitz,IRIS intake form,First email about the study 3/13/2025
+24,Yannuzzi IRIS Timing and Age as Determinants of Visual Outcomes and Complications in Pediatric Macular Hole Repair,Yannuzzi,IRIS,,7/2/2025,5/14/2026,5/28/2026,16.17,316,Completed,14,,David Holden,IRIS intake form,
+25,"Lee IRIS Risk of Glaucoma Following Vitrectomy, Scleral Buckle, and Combined Surgery A Propensity-Matched Analysis Using the IRIS Registry",Lee,IRIS,,7/23/2025,12/15/2025,12/16/2025,8.15,145,Completed,1,,David Holden,IRIS intake form,
+26,COSMOS Vitrectomy for PostOperative Endophthalmitis An Analysis in the Era of Small Gauge Surgery,Williams,Cosmos,,7/20/2025,,,,,Pending,,,Mya Abousy,Epic Cosmos intake form,
+27,Rate of Uveal Melanoma with Underlying Oculodermal Melanocytosis Stratified by Race,Williams,Cosmos,,7/25/2025,,,,,Pending,,,Victoria Marks,Epic Cosmos intake form,Service Request Form for this project 6/4/2025; intake document emailed 7/22/2025
+28,Medeiros IRIS Impact of topical anti-inflammatory treatment on the outcomes of selective laser trabeculoplasty,Medeiros,IRIS,Data Extraction/Filtering,8/24/2025,9/8/2025,9/12/2025,20,15,Completed,4,,Abdelrahman Elhusseiny,IRIS intake form,
+29,"Yoo IRIS Combined LASIKPRK Demographics Visual Symptoms, and Shared Post-Operative Complications in the IRIS Registry",Yoo,IRIS,,8/28/2025,10/9/2025,3/9/2026,61.82,42,Completed,151,Published,Sujin Kang,IRIS intake form,
+30,Postoperative Visit Burden Following Glaucoma Surgery,Rothman,IRIS,,3/3/2026,,,,,Assigned to Omar,,,Adam Rothman,IRIS intake form,Number reused after the original #30 was cancelled
+30,Risk of glaucoma after penetrating keratoplasty,Rothman,IRIS,,9/11/2025,,,,,Cancelled,,,Sujin Kang,IRIS intake form,Cancelled
+31,Palioura T2DM CEIOL,Palioura,IRIS,,11/10/2025,1/23/2026,10/6/2026,176.53,74,Ongoing,256,,Sotiria Palioura,IRIS intake form,
+32,"Yousefi Comparison of Biologic, Conventional Disease-Modifying Antirheumatic Drugs (DMARDs)",Yousefi,IRIS,,11/12/2025,12/10/2025,6/22/2026,15.38,28,Completed,194,,Seyed Amin Nabavi,IRIS intake form,
+33,Association of Social Determinants of Health (SDoH) with Vision Outcomes,Yousefi,Cosmos,,11/13/2025,,,,,Pending,,,Seyed Amin Nabavi,Epic Cosmos intake form,
+34,Origins of Conjunctival Melanoma,Palioura,IRIS,,11/14/2025,,,,,Pending,,,Sujin Kang,IRIS intake form,Revised intake 1/21/2026
+35,Swaminathan Incidence and management of non-surgical hyphemas,Swaminathan,Both,,1/7/2026,5/29/2026,6/30/2026,55.47,142,Ongoing,32,,Swarup Swaminathan,IRIS intake form,
+36,Association Between PDE-5 Inhibitor Use and Open-Angle Glaucoma Among Adults With Erectile Dysfunction,Medeiros,Cosmos,,1/13/2026,,,,,Pending,,,Abdelrahman Elhusseiny,Epic Cosmos intake form,
+37,Koo Corneal Graft Survival in Keratoplasty Recipients,Koo,IRIS,Data Extraction/Filtering,1/14/2026,7/1/2026,7/2/2026,7.1,168,On hold,1,,Sujin Kang,IRIS intake form,Assigned to Guertson
+38,Factors associated with complications of retinal vein occlusion (RVO),Williams,Cosmos,,2/5/2026,,,,,Pending,,,James Park,Epic Cosmos intake form,Submitted with #39 the same evening (separate project)
+39,Factors Influencing First-Line and Escalation Therapies in Retinal Vein Occlusion,Williams,Cosmos,,2/5/2026,,,,,Pending,,,James Park,Epic Cosmos intake form,Submitted with #38 the same evening (separate project)
+40,Yoo Prevalence of Myopia in the United States,Yoo,IRIS,,4/27/2026,4/28/2026,9/16/2026,61.2,1,Ongoing,141,,Sujin Kang,IRIS intake form,Revised intake 10/3/2026
+41,Association of Postoperative Anti-inflammatory Drops with Outcomes of Laser Peripheral Iridotomy,Medeiros,IRIS,,6/1/2026,7/3/2026,8/19/2026,29.65,32,Completed,47,,Abdelrahman Elhusseiny,IRIS intake form,
+42,BMI Effects of MIGS Success,Swaminathan,Cosmos,,7/21/2026,,,,,Pending,,,Rahul Aggarwal,Epic Cosmos intake form,
+43,IVI discontinuation post-PPV,Smiddy,IRIS,Data Extraction/Filtering,7/30/2026,8/18/2026,9/17/2026,10.85,19,Completed,30,,Jessica Mar,IRIS intake form,Assigned to Guertson
+44,Lee Silicone Oil and Glaucoma Progression,Lee,IRIS,,8/3/2026,9/29/2026,10/8/2026,6.95,57,Ongoing,9,,Hannah Grant,IRIS intake form,
+45,Role of Anti-Vascular Endothelial Growth Factor Therapy in Surgical Outcomes of Incisional Glaucoma Surgery in Patients with Neovascular versus Non-Neovascular Age-Related Macular Degeneration: An IRIS Registry Analysis,Rothman,IRIS,,9/2/2026,,,,,Pending,,,Abdelrahman Elhusseiny,IRIS intake form,
+46,Glaucoma in Patients with Retinopathy of Prematurity,Bitrian,Cosmos,,9/23/2026,,,,,Pending,,,Johar Abbas,Epic Cosmos intake form,
+47,Association of Postoperative Anti-inflammatory Drops with Outcomes of Goniotomy,Bitrian,IRIS,,10/1/2026,,,,,Pending,,,Johar Abbas,IRIS intake form,

@@ -1,6 +1,6 @@
 import pandas as pd
 import re
-
+from datetime import datetime
 
 # -------------------------------------------------------------------
 # MAIN FUNCTION
@@ -367,11 +367,20 @@ def build_project_summary(
 # -------------------------------------------------------------------
 
 
+date_str = datetime.now().strftime("%Y%m%d")  # e.g. 20260804
+
 final_df = build_project_summary(
-    iris_csv="C:\\Users\\lxp1655\\OneDrive - University of Miami\\GithubUM\\project_keeping\\Project Time Report - IRIS.csv",
-    cosmos_csv="C:\\Users\\lxp1655\\OneDrive - University of Miami\\GithubUM\\project_keeping\\Project Time Report - COSMOS.csv",
+    iris_csv=r"C:\Users\lxp1655\OneDrive - University of Miami\GithubUM\project_keeping\Project Time Report - IRIS.csv",
+    cosmos_csv=r"C:\Users\lxp1655\OneDrive - University of Miami\GithubUM\project_keeping\Project Time Report - COSMOS.csv",
     submission_csv="project_submission_dates.csv",
-    output_csv="combined_project_summary.csv"
+    output_csv=f"{date_str} combined_project_summary.csv"
 )
+
+# final_df = build_project_summary(
+#     iris_csv="C:\\Users\\lxp1655\\OneDrive - University of Miami\\GithubUM\\project_keeping\\Project Time Report - IRIS.csv",
+#     cosmos_csv="C:\\Users\\lxp1655\\OneDrive - University of Miami\\GithubUM\\project_keeping\\Project Time Report - COSMOS.csv",
+#     submission_csv="project_submission_dates.csv",
+#     output_csv="combined_project_summary.csv"
+# )
 
 print(final_df.head())
